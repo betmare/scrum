@@ -2,7 +2,6 @@ package main.controller;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import main.model.Comment;
-import main.repository.CommentRepository;
 import main.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class CommentController {
     @PostMapping(path = "/")
     @ResponseBody
     public ResponseEntity<Object> postComment(@RequestBody Comment comment) {
-        Comment commentResponse = null;
+        Comment commentResponse;
         try {
             commentResponse = commentService.saveComment(comment);
         } catch (NumberParseException e) {
