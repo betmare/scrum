@@ -1,11 +1,15 @@
 package main.controller;
 
+import com.google.i18n.phonenumbers.NumberParseException;
 import main.model.Comment;
 import main.repository.CommentRepository;
+import main.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,10 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @PostMapping(path = "/")
-    public Comment postComment(@RequestBody Comment comment) {
-        return commentRepository.save(comment);
+    @ResponseBody
+    public ResponseEntity<Object> postComment(@RequestBody Comment comment) {
+        Comment commentResponse = null;
+        try {
+            commentResponse = commentService.saveComment(comment);
+        } catch (NumberParseException e) {
+            return ResponseEntity.badRequest().body("Invalid Number");
+        }
+        return ResponseEntity.accepted().body(commentResponse);
     }
 }
