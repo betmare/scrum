@@ -25,7 +25,7 @@ public class CommentController {
         try {
             commentResponse = commentService.saveComment(comment);
         } catch (NumberParseException e) {
-            return ResponseEntity.badRequest().body("Invalid Number");
+            return ResponseEntity.badRequest().body("Phone: "+e.getErrorType()+" "+e.getMessage());
         }
         return ResponseEntity.accepted().body(commentResponse);
     }

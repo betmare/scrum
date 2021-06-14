@@ -14,8 +14,10 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public Comment saveComment( Comment comment ) throws NumberParseException {
-        PhoneValidator.isValidNumber(comment.getPhone());
 
+        if (!PhoneValidator.isValidNumber(comment.getPhone())){
+            throw new NumberParseException(NumberParseException.ErrorType.NOT_A_NUMBER, "Invalid Number");
+        }
         return commentRepository.save(comment);
     }
 }

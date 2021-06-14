@@ -8,9 +8,13 @@ public class PhoneValidator {
     static PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
 
     public static boolean isValidNumber( final String phoneNumber ) throws NumberParseException {
-        Phonenumber.PhoneNumber phone = phoneNumberUtil.parse(phoneNumber,
-                Phonenumber.PhoneNumber.CountryCodeSource.UNSPECIFIED.name());
+        Phonenumber.PhoneNumber phone = parsePhoneNumber(phoneNumber);
 
         return phoneNumberUtil.isValidNumber(phone);
+    }
+
+    public static Phonenumber.PhoneNumber parsePhoneNumber( final String phoneNumber ) throws NumberParseException {
+        return phoneNumberUtil.parse(phoneNumber,
+                Phonenumber.PhoneNumber.CountryCodeSource.UNSPECIFIED.name());
     }
 }
