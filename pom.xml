@@ -6,7 +6,8 @@
 
     <groupId>org.cenfotec</groupId>
     <artifactId>scrum</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
